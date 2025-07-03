@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://chhv03xwjqjbv"]
+
+[ext_resource type="Script" path="res://levels/level_base.gd" id="1_wqhi6"]
+[ext_resource type="TileSet" uid="uid://dhxw3f8l2saqn" path="res://assets/tilesets/tiles_world.tres" id="2_pjyxc"]
+[ext_resource type="Texture2D" uid="uid://elfqj4ni4jxs" path="res://assets/environment/back.png" id="2_q7fkc"]
+[ext_resource type="TileSet" uid="uid://dn505hopwb4de" path="res://assets/tilesets/tiles_items.tres" id="3_6fy52"]
+[ext_resource type="TileSet" uid="uid://blhd0ogpuydej" path="res://assets/tilesets/tiles_spikes.tres" id="4_thufl"]
+[ext_resource type="PackedScene" uid="uid://cawpslwhylmuc" path="res://player/player.tscn" id="5_6tq4a"]
+[ext_resource type="PackedScene" uid="uid://cfaha8sx0ijcu" path="res://UI/hud.tscn" id="7_xsb8x"]
+
+[node name="LevelBase" type="Node2D"]
+script = ExtResource("1_wqhi6")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(576, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(-574, -360)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_q7fkc")
+centered = false
+
+[node name="World" type="TileMap" parent="."]
+tile_set = ExtResource("2_pjyxc")
+format = 2
+
+[node name="Items" type="TileMap" parent="."]
+tile_set = ExtResource("3_6fy52")
+format = 2
+
+[node name="Danger" type="TileMap" parent="."]
+tile_set = ExtResource("4_thufl")
+format = 2
+
+[node name="Player" parent="." instance=ExtResource("5_6tq4a")]
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("7_xsb8x")]
+
+[connection signal="score_changed" from="." to="CanvasLayer/HUD" method="update_score"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="life_changed" from="Player" to="CanvasLayer/HUD" method="update_life"]
