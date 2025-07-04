@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk5jjcbj5g5d1"]
+
+[ext_resource type="Texture2D" uid="uid://dlu3lc2egdqu8" path="res://assets/environment/tileset.png" id="1_eas1y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkxem"]
+size = Vector2(14, 16)
+
+[node name="Ladder" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_eas1y")
+offset = Vector2(0, -8)
+region_enabled = true
+region_rect = Rect2(112.972, 160.091, 14.1273, 16.2157)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_kkxem")

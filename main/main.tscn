@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnqigjq0rvof6"]
+[gd_scene load_steps=4 format=3 uid="uid://dnqigjq0rvof6"]
 
 [ext_resource type="PackedScene" uid="uid://cawpslwhylmuc" path="res://player/player.tscn" id="1_7ckqr"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wf0w6"]
+[ext_resource type="AudioStream" uid="uid://0k12smxu6w0h" path="res://assets/audio/Grasslands Theme.ogg" id="3_5ywsa"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_wf0w6")
 
 [node name="Player" parent="." instance=ExtResource("1_7ckqr")]
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5ywsa")

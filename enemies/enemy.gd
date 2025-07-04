@@ -25,6 +25,7 @@ func _physics_process(delta):
 	if position.y > 10000:
 		queue_free()		
 func take_damage():
+	$HitSound.play()
 	$AnimationPlayer.play("death")
 	$CollisionShape2D.set_deferred("disabled", true)
 	set_physics_process(false)

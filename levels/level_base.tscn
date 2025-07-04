@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://chhv03xwjqjbv"]
+[gd_scene load_steps=9 format=3 uid="uid://chhv03xwjqjbv"]
 
 [ext_resource type="Script" path="res://levels/level_base.gd" id="1_wqhi6"]
 [ext_resource type="TileSet" uid="uid://dhxw3f8l2saqn" path="res://assets/tilesets/tiles_world.tres" id="2_pjyxc"]
@@ -7,6 +7,7 @@
 [ext_resource type="TileSet" uid="uid://blhd0ogpuydej" path="res://assets/tilesets/tiles_spikes.tres" id="4_thufl"]
 [ext_resource type="PackedScene" uid="uid://cawpslwhylmuc" path="res://player/player.tscn" id="5_6tq4a"]
 [ext_resource type="PackedScene" uid="uid://cfaha8sx0ijcu" path="res://UI/hud.tscn" id="7_xsb8x"]
+[ext_resource type="AudioStream" uid="uid://0wq33pdf1sh1" path="res://assets/audio/pickup2.ogg" id="8_m7l6b"]
 
 [node name="LevelBase" type="Node2D"]
 script = ExtResource("1_wqhi6")
@@ -43,6 +44,16 @@ format = 2
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("7_xsb8x")]
 
+[node name="LevelupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_m7l6b")
+volume_db = -7.495
+
+[node name="Ladders" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
 [connection signal="score_changed" from="." to="CanvasLayer/HUD" method="update_score"]
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="life_changed" from="Player" to="CanvasLayer/HUD" method="update_life"]
+[connection signal="body_entered" from="Ladders" to="." method="_on_ladders_body_entered"]
+[connection signal="body_exited" from="Ladders" to="." method="_on_ladders_body_exited"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cawpslwhylmuc"]
+[gd_scene load_steps=15 format=3 uid="uid://cawpslwhylmuc"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_062gm"]
 [ext_resource type="Texture2D" uid="uid://lqals8v555pu" path="res://assets/player_sheet.png" id="1_psroh"]
+[ext_resource type="AudioStream" uid="uid://cnmtgqiun2gco" path="res://assets/audio/jump4.ogg" id="3_8mapw"]
+[ext_resource type="AudioStream" uid="uid://g6ogr65lypmd" path="res://assets/audio/hurt1.ogg" id="4_471jq"]
 
 [sub_resource type="Animation" id="Animation_54aco"]
 length = 0.001
@@ -103,9 +105,27 @@ tracks/0/keys = {
 "values": [13, 18]
 }
 
+[sub_resource type="Animation" id="Animation_hm4ff"]
+resource_name = "climb"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tj1wj"]
 _data = {
 "RESET": SubResource("Animation_54aco"),
+"climb": SubResource("Animation_hm4ff"),
 "hurt": SubResource("Animation_706cf"),
 "idle": SubResource("Animation_a6fa1"),
 "jump_down": SubResource("Animation_tg4o0"),
@@ -115,6 +135,9 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oyvok"]
 size = Vector2(12, 21)
+
+[sub_resource type="Gradient" id="Gradient_cggql"]
+colors = PackedColorArray(0.551513, 0.311443, 0.160962, 1, 1, 1, 1, 1)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -140,3 +163,26 @@ shape = SubResource("RectangleShape2D_oyvok")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
 limit_top = -360
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8mapw")
+volume_db = -10.501
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_471jq")
+
+[node name="Dust" type="CPUParticles2D" parent="."]
+position = Vector2(-2, 0)
+rotation = -1.5708
+emitting = false
+amount = 20
+lifetime = 0.45
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.7
+emission_shape = 3
+emission_rect_extents = Vector2(1, 6)
+gravity = Vector2(0, 0)
+initial_velocity_max = 10.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_cggql")

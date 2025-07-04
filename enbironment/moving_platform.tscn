@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhafqqavftdbv"]
+
+[ext_resource type="Script" path="res://enbironment/moving_platform.gd" id="1_fgkle"]
+[ext_resource type="TileSet" uid="uid://dhxw3f8l2saqn" path="res://assets/tilesets/tiles_world.tres" id="2_spft4"]
+
+[node name="MovingPlatform" type="Node2D"]
+script = ExtResource("1_fgkle")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_spft4")
+collision_animatable = true
+format = 2
+layer_0/tile_data = PackedInt32Array(-196608, 65536, 1, -196607, 65536, 1, -196606, 65536, 1, -196605, 65536, 1, -196604, 65536, 1)
